@@ -56,10 +56,3 @@ def get_mask_account(account_number: str) -> str:
     masked_account = f"**{last_four_digits}"
 
     return masked_account
-
-
-if __name__ == '__main__':
-    user_card = input("ВВедите номер карты: ")
-    user_account = input("Введите номер счета: ")
-    print(get_mask_card_number(user_card))
-    print(get_mask_account(user_account))
