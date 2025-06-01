@@ -21,7 +21,7 @@ def mask_account_card(data: str) -> str:
                 - "Счет **4305"
     """
     # Полученные данные приведем к нижнему регистру и разобьем на список, содержащий отдельно имя(имена) отдельно номер
-    parts = data.split()
+    parts = data.lower().split()
     number = parts[-1]
     name = " ".join(parts[:-1])
     masked_data = ''
