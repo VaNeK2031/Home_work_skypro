@@ -1,4 +1,4 @@
-from masks import get_mask_account, get_mask_card_number
+from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(data: str) -> str:
@@ -34,6 +34,15 @@ def mask_account_card(data: str) -> str:
 
 
 def get_date(date: str) -> str:
+    """
+        Преобразует строку с датой из формата 'YYYY-MM-DD' в формат 'DD.MM.YYYY'.
+
+        Параметры:
+            date (str): Дата в формате 'YYYY-MM-DD'.
+
+        Возвращает:
+            str: Дата в формате 'DD.MM.YYYY'.
+        """
     # Зная формат входных данных делаем срезы по году, месяцу и дню
     year = date[0:4]
     month = date[5:7]
