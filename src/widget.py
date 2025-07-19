@@ -21,16 +21,25 @@ def mask_account_card(data: str) -> str:
                 - "Счет **4305"
     """
     # Полученные данные приведем к нижнему регистру и разобьем на список, содержащий отдельно имя(имена) отдельно номер
-    parts = data.lower().split()
+    parts = data.split()
+    if len(parts) < 2:
+        raise ValueError(f"Неверный формат данных: '{data}'. Ожидалось название и номер.")
+
     number = parts[-1]
     name = " ".join(parts[:-1])
-    masked_data = ''
-    # Проверяем получен счет или название карты, и производим маскировку данных
-    if name == "счет":
-        masked_data = name.title() + ' ' + get_mask_account(number)
-    elif name != "счет":
-        masked_data = name.title() + ' ' + get_mask_card_number(number)
-    return masked_data
+
+    # Проверяем, что номер состоит только из цифр
+    if not number.isdigit():
+        raise ValueError(f"Номер должен состоять только цифры. Получено: '{number}'")
+
+    # Определяем тип: карта или счёт
+    if name.lower() == "счет":
+        if len(number) < 4:
+            raise ValueError(f"Номер счёта должен содержать минимум 4 цифры. Получено: {len(number)} символов.")
+        return f"{name.title()} {get_mask_account(number)}"
+    elif len(number) != 16:
+        raise ValueError(f"Номер карты должен содержать 16 цифр. Получено: {len(number)} символов.")
+    return f"{name.title()} {get_mask_card_number(number)}"
 
 
 def get_date(date: str) -> str:
